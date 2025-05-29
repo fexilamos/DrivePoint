@@ -3,62 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Reserva;
+use Illuminate\Support\Facades\Auth;
 
 class ReservaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+   public function store(Request $request)
+{
+    $request->validate([
+        'bem_locavel_id' => 'required|exists:carros,id',
+        'data_inicio' => 'required|date',
+        'data_fim' => 'required|date|after:data_inicio',
+        'local_retirada' => 'required|string|max:255',
+    ]);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    Reserva::create([
+        'user_id' => Auth::id(),
+        'carro_id' => $request->bem_locavel_id,
+        'data_inicio' => $request->data_inicio,
+        'data_fim' => $request->data_fim,
+        'local_retirada' => $request->local_retirada,
+    ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    return redirect()->route('dashboard')->with('success', 'Reserva realizada com sucesso!');
+}
 }

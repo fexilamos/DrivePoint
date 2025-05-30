@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.store');
 });
 Route::get('/pesquisa', [PesquisaController::class, 'index'])->name('pesquisa');
+Route::get('/reservas', [PesquisaController::class, 'reservas'])
+    ->middleware(['auth', 'verified'])
+    ->name('reservas');
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])

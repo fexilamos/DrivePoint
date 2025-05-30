@@ -5,7 +5,7 @@
 @section('content')
 
 
-  <div x-data="locationFilter()" class="bg-white shadow rounded p-6 max-w-3xl mx-auto">
+  {{-- <div x-data="locationFilter()" class="bg-white shadow rounded p-6 max-w-3xl mx-auto">
     <h2 class="text-xl font-semibold mb-4">Pesquisar Carros Disponíveis</h2>
     <form method="GET" action="{{ route('dashboard') }}" class="space-y-6" @submit="if(!selectedCidade || !selectedFilial) { alert('Por favor, selecione cidade e filial.'); $event.preventDefault(); }">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -87,5 +87,5 @@
         }
       }
     }
-  </script>
+  </script> --}}
 @endsection

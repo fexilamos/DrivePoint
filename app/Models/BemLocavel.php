@@ -10,6 +10,8 @@ class BemLocavel extends Model
     protected $table = 'bens_locaveis';
 
     use HasFactory;
+    public $timestamps = false;
+
 
     protected $fillable = [
         'marca_id',
@@ -28,12 +30,31 @@ class BemLocavel extends Model
     ];
 
 
-
 public function reservas()
 {
-    return $this->hasMany(Reserva::class);
+    return $this->hasMany(Reserva::class, 'bem_locavel_id');
 }
 
+
+public function estaDisponivel($data_inicio, $data_fim)
+{
+    return !$this->reservas()
+        ->where(function ($query) use ($data_inicio, $data_fim) {
+            $query->whereBetween('data_inicio', [$data_inicio, $data_fim])
+                  ->orWhereBetween('data_fim', [$data_inicio, $data_fim])
+                  ->orWhere(function ($query) use ($data_inicio, $data_fim) {
+                      $query->where('data_inicio', '<=', $data_inicio)
+                            ->where('data_fim', '>=', $data_fim);
+                  });
+        })
+        ->exists();
+}
+
+
+public function marca()
+{
+    return $this->belongsTo(\App\Models\Marca::class, 'marca_id');
+}
 
 
 }

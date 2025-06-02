@@ -50,17 +50,25 @@
       <div class="mt-8">
         <h3 class="text-lg font-semibold mb-4">Carros Disponíveis</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          @foreach ($availableCars as $carro)
-            <div class="border rounded shadow p-4">
-              <h4 class="font-semibold text-lg mb-2">{{ $carro->marca }} {{ $carro->modelo }} ({{ $carro->ano }})</h4>
-              <p class="mb-1">Cor: {{ $carro->cor }}</p>
-              <p class="mb-1">Preço Diário: €{{ number_format($carro->preco_diario, 2) }}</p>
-              <p class="mb-1">Combustível: {{ ucfirst($carro->combustivel) }}</p>
-              <p class="mb-1">Transmissão: {{ ucfirst($carro->transmissao) }}</p>
-              <a href="{{ route('carros.show', $carro) }}"
-                class="inline-block mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-4 rounded">Ver Detalhes</a>
-            </div>
-          @endforeach
+         @foreach ($availableCars as $carro)
+  <div class="border rounded shadow p-4">
+    <img src="{{ asset('images/' . $carro->imagem) }}"
+         alt="Imagem do {{ $carro->modelo }}"
+         class="mb-3 w-full h-48 object-cover rounded">
+
+    <h4 class="font-semibold text-lg mb-2">{{ $carro->marca }} {{ $carro->modelo }} ({{ $carro->ano }})</h4>
+    <p class="mb-1">Cor: {{ $carro->cor }}</p>
+    <p class="mb-1">Preço Diário: €{{ number_format($carro->preco_diario, 2) }}</p>
+    <p class="mb-1">Combustível: {{ ucfirst($carro->combustivel) }}</p>
+    <p class="mb-1">Transmissão: {{ ucfirst($carro->transmissao) }}</p>
+    <a href="{{ route('carros.show', $carro) }}?data_inicio={{ request('data_inicio') }}&data_fim={{ request('data_fim') }}"
+   class="inline-block mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-4 rounded">
+   Ver Detalhes
+</a>
+
+  </div>
+@endforeach
+
         </div>
       </div>
     @elseif($selectedCidade && $selectedFilial && $dataInicio && $dataFim)

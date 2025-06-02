@@ -48,7 +48,36 @@ class DashboardController extends Controller
 
             $availableCars = BemLocavel::whereIn('id', $availableCarIds)->get();
         }
-// dd($locations);
+
+        // Card de turismo carrossel
+        $cardsTurismo = [
+            [
+                'titulo' => 'Serra da Estrela',
+                'descricao' => 'Descobre o ponto mais alto de Portugal Continental, com paisagens deslumbrantes durante todo o ano. Ideal para caminhadas, desportos de inverno e passeios de carro por aldeias históricas e montanhas cobertas de neve. Visita o famoso queijo da serra e prova os sabores únicos da região.',
+                'imagem' => 'serradaestrela.webp',
+            ],
+            [
+                'titulo' => 'Sintra - Palácio da Pena',
+                'descricao' => 'Um verdadeiro conto de fadas às portas de Lisboa, rodeado de florestas místicas e arquitetura colorida. O Palácio da Pena é um ícone do romantismo europeu e oferece vistas panorâmicas únicas. Perde-te pelos jardins e descobre os segredos da Serra de Sintra..',
+                'imagem' => 'palaciopena.webp',
+            ],
+            [
+                'titulo' => 'Costa Vicentina',
+                'descricao' => 'Uma das zonas costeiras mais bem preservadas da Europa, ideal para quem procura natureza e tranquilidade. Oferece praias selvagens, trilhos pedestres e aldeias piscatórias autênticas. Perfeita para surf, caminhadas e entardeceres mágicos sobre o Atlântico.',
+                'imagem' => 'costavicentina.jpg',
+            ],
+            [
+                'titulo' => 'Rota dos Vinhos do Douro',
+                'descricao' => 'Um dos destinos mais emblemáticos de Portugal, onde a tradição vinícola e a beleza natural se unem. Viaja pelas margens do rio em rotas panorâmicas e visita quintas centenárias com provas de vinho. Classificado como Património Mundial, é um destino imperdível para os amantes de paisagens e enoturismo.',
+                'imagem' => 'douro.jpg',
+            ],
+            [
+                'titulo' => 'Serra do Gerês',
+                'descricao' => 'Um paraíso natural no norte de Portugal, inserido no único Parque Nacional do país – o Parque Nacional da Peneda-Gerês. Ideal para quem procura trilhos, cascatas, miradouros e aldeias preservadas no tempo. Descobre locais mágicos como a Cascata do Arado, a Mata da Albergaria ou os trilhos da Geira Romana.',
+                'imagem' => 'geres.jpg',
+            ],
+        ];
+        // Não escolher aleatório, passar todos para o carrossel
         return view('dashboard', [
             'locations' => $locations,
             'availableCars' => $availableCars,
@@ -56,6 +85,7 @@ class DashboardController extends Controller
             'selectedFilial' => $request->input('filial'),
             'dataInicio' => $request->input('data_inicio'),
             'dataFim' => $request->input('data_fim'),
+            'cardsTurismo' => $cardsTurismo,
         ]);
     }
 }

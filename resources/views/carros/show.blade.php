@@ -7,15 +7,51 @@
     <h1 class="text-3xl font-bold mb-6">Detalhes do Carro</h1>
 
     <div class="bg-white shadow rounded p-6">
-        <h2 class="text-xl font-semibold mb-2">{{ $carro->marca }} {{ $carro->modelo }} ({{ $carro->ano }})</h2>
-        <p class="mb-1"><strong>Matrícula:</strong> {{ $carro->matricula }}</p>
-        <p class="mb-1"><strong>Preço por dia:</strong> {{ number_format($carro->preco_dia, 2) }} €</p>
-        <p class="mb-4"><strong>Disponível:</strong> {{ $carro->disponivel ? 'Sim' : 'Não' }}</p>
-        @if ($carro->imagem)
-            <img src="{{ asset('storage/' . $carro->imagem) }}" alt="Imagem do carro" class="rounded max-w-full h-auto" />
+        <h2 class="text-xl font-semibold mb-2">{{ $carro->marca->nome ?? '' }} {{ $carro->modelo }} ({{ $carro->ano }})</h2>
+        <p class="mb-1"><strong>Matrícula:</strong> {{ $carro->registo_unico_publico ?? $carro->matricula ?? '-' }}</p>
+        <p class="mb-1"><strong>Preço por dia:</strong> {{ number_format($carro->preco_diario ?? $carro->preco_dia, 2) }} €</p>
+        @if ($data_inicio && $data_fim)
+            @php
+                $dias = \Carbon\Carbon::parse($data_inicio)->diffInDays(\Carbon\Carbon::parse($data_fim));
+                $total = $dias > 0 ? $dias * ($carro->preco_diario ?? $carro->preco_dia) : 0;
+            @endphp
+            <p class="mb-1"><strong>Duração:</strong> {{ $dias }} dia(s)</p>
+            <p class="mb-1"><strong>Total:</strong> €{{ number_format($total, 2) }}</p>
         @endif
+        <p class="mb-4"><strong>Disponível:</strong>
+            @if ($data_inicio && $data_fim)
+                {{ $disponivel === null ? 'Sim' : ($disponivel ? 'Sim' : 'Não') }}
+            @else
+                Sim
+            @endif
+        </p>
+        @if ($carro->imagem)
+    <img src="{{ asset('images/' . $carro->imagem) }}" alt="Imagem do carro" class="rounded max-w-full h-auto mb-4" />
+@endif
+
     </div>
 
     <a href="{{ route('carros.index') }}" class="inline-block mt-6 bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded">Voltar</a>
+@if (auth()->check())
+  <form action="{{ route('reservas.store', $carro) }}" method="POST" class="mt-4">
+      @csrf
+      <div class="mb-2">
+          <label for="data_inicio" class="block font-semibold">Data de Início:</label>
+          <input type="date" name="data_inicio" required value="{{ $data_inicio ?? '' }}" class="border px-2 py-1 rounded w-full">
+      </div>
+      <div class="mb-2">
+          <label for="data_fim" class="block font-semibold">Data de Fim:</label>
+          <input type="date" name="data_fim" required value="{{ $data_fim ?? '' }}" class="border px-2 py-1 rounded w-full">
+      </div>
+      <button type="submit"
+          class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">
+          Reservar este carro
+      </button>
+  </form>
+@else
+  <p class="mt-4 text-sm text-red-600">Precisa de estar autenticado para fazer uma reserva.</p>
+@endif
+
+
 </div>
 @endsection

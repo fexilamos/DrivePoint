@@ -1,29 +1,61 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('layouts.dashboard')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+@section('title', 'Perfil')
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
+@section('content')
+<div class="max-w-3xl mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-6">O Meu Perfil</h1>
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
+    {{-- Formulário de edição de dados do utilizador --}}
+    <div class="bg-white shadow rounded-lg p-6 mb-8">
+        <form method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            @method('PATCH')
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-semibold mb-1">Nome</label>
+                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
-        </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-semibold mb-1">Email</label>
+                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div class="flex space-x-4">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded">Guardar</button>
+            </div>
+        </form>
     </div>
-</x-app-layout>
+
+    {{-- Listagem das reservas do utilizador --}}
+    <div class="bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Minhas Reservas</h2>
+        @if($reservas->isEmpty())
+            <p class="text-gray-600">Ainda não tem reservas.</p>
+        @else
+        <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200 rounded shadow">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="py-2 px-4 border-b text-left">Carro</th>
+                    <th class="py-2 px-4 border-b text-left">Data Início</th>
+                    <th class="py-2 px-4 border-b text-left">Data Fim</th>
+                    <th class="py-2 px-4 border-b text-left">Preço Total</th>
+                    <th class="py-2 px-4 border-b text-left">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($reservas as $reserva)
+                <tr class="hover:bg-gray-50">
+                    <td class="py-2 px-4 border-b">{{ $reserva->bemLocavel->marca->nome ?? '' }} {{ $reserva->bemLocavel->modelo ?? '' }}</td>
+                    <td class="py-2 px-4 border-b">{{ $reserva->data_inicio }}</td>
+                    <td class="py-2 px-4 border-b">{{ $reserva->data_fim }}</td>
+                    <td class="py-2 px-4 border-b">{{ number_format($reserva->preco_total, 2) }} €</td>
+                    <td class="py-2 px-4 border-b">{{ ucfirst($reserva->status ?? 'ativa') }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        </div>
+        @endif
+    </div>
+</div>
+@endsection

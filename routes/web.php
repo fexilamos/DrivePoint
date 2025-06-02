@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('carros', CarroController::class);
     Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.store');
+    Route::get('/perfil', [ProfileController::class, 'edit'])->name('perfil');
 });
 Route::get('/pesquisa', [PesquisaController::class, 'index'])->name('pesquisa');
 Route::get('/reservas', [PesquisaController::class, 'reservas'])

@@ -5,6 +5,33 @@
 @section('content')
 
 
+  @if(isset($cardsTurismo) && count($cardsTurismo) > 0)
+    <div class="max-w-6xl mx-auto mb-8">
+      <div x-data="{ idx: 0, total: {{ count($cardsTurismo) }} }" class="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row relative">
+        <button @click="idx = idx === 0 ? total-1 : idx-1" class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full p-2 z-10">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <template x-for="(card, i) in $store.cardsTurismo" :key="i">
+          <div x-show="i === idx" class="flex flex-col md:flex-row w-full">
+            <img :src="'/images/' + card.imagem" alt="Turismo" class="w-full md:w-96 h-64 object-cover">
+            <div class="p-8 flex-1">
+              <h3 class="text-2xl font-bold mb-4 text-red-600" x-text="card.titulo"></h3>
+              <p class="text-gray-700 text-lg" x-text="card.descricao"></p>
+            </div>
+          </div>
+        </template>
+        <button @click="idx = idx === total-1 ? 0 : idx+1" class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full p-2 z-10">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+      <script>
+        document.addEventListener('alpine:init', () => {
+          Alpine.store('cardsTurismo', @json($cardsTurismo));
+        });
+      </script>
+    </div>
+  @endif
+
   {{-- <div x-data="locationFilter()" class="bg-white shadow rounded p-6 max-w-3xl mx-auto">
     <h2 class="text-xl font-semibold mb-4">Pesquisar Carros Disponíveis</h2>
     <form method="GET" action="{{ route('dashboard') }}" class="space-y-6" @submit="if(!selectedCidade || !selectedFilial) { alert('Por favor, selecione cidade e filial.'); $event.preventDefault(); }">

@@ -12,7 +12,7 @@
         <div>
           <label for="cidade" class="block text-gray-700 font-semibold mb-1">Cidade</label>
           <select name="cidade" id="cidade" x-model="selectedCidade" required
-            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" @change="selectedFilial = ''">
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" @change="selectedFilial = ''">
             <option value="" disabled>Selecione a cidade</option>
             <template x-for="cidade in uniqueCidades()" :key="cidade">
               <option :value="cidade" x-text="cidade" :selected="cidade === '{{ $selectedCidade }}'"></option>
@@ -22,7 +22,7 @@
         <div>
           <label for="filial" class="block text-gray-700 font-semibold mb-1">Filial</label>
           <select name="filial" id="filial" x-model="selectedFilial" required
-            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" :disabled="!selectedCidade">
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" :disabled="!selectedCidade">
             <option value="" disabled>Selecione a filial</option>
             <template x-for="filial in filteredFiliais()" :key="filial">
               <option :value="filial" x-text="filial" :selected="filial === '{{ $selectedFilial }}'"></option>
@@ -32,17 +32,17 @@
         <div>
           <label for="data_inicio" class="block text-gray-700 font-semibold mb-1">Data de Início</label>
           <input type="date" name="data_inicio" id="data_inicio" required value="{{ old('data_inicio', $dataInicio) }}"
-            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
         </div>
         <div>
           <label for="data_fim" class="block text-gray-700 font-semibold mb-1">Data de Fim</label>
           <input type="date" name="data_fim" id="data_fim" required value="{{ old('data_fim', $dataFim) }}"
-            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
         </div>
       </div>
       <div>
         <button type="submit"
-          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded">Pesquisar</button>
+          class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition">Pesquisar</button>
       </div>
     </form>
 
@@ -62,7 +62,7 @@
     <p class="mb-1">Combustível: {{ ucfirst($carro->combustivel) }}</p>
     <p class="mb-1">Transmissão: {{ ucfirst($carro->transmissao) }}</p>
     <a href="{{ route('carros.show', $carro) }}?data_inicio={{ request('data_inicio') }}&data_fim={{ request('data_fim') }}"
-   class="inline-block mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-4 rounded">
+   class="inline-block mt-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-1 px-4 rounded">
    Ver Detalhes
 </a>
 

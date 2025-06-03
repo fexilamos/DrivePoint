@@ -14,9 +14,14 @@
         <template x-for="(card, i) in $store.cardsTurismo" :key="i">
           <div x-show="i === idx" class="flex flex-col md:flex-row w-full">
             <img :src="'/images/' + card.imagem" alt="Turismo" class="w-full md:w-96 h-64 object-cover">
-            <div class="p-8 flex-1">
-              <h3 class="text-2xl font-bold mb-4 text-red-600" x-text="card.titulo"></h3>
-              <p class="text-gray-700 text-lg" x-text="card.descricao"></p>
+            <div class="p-8 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-2xl font-bold mb-4 text-red-600" x-text="card.titulo"></h3>
+                <p class="text-gray-700 text-lg" x-text="card.descricao"></p>
+              </div>
+              <div class="mt-6 flex justify-end">
+<a :href="card.link" target="_blank" class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition">Vamos viajar!</a>
+              </div>
             </div>
           </div>
         </template>

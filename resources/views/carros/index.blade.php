@@ -12,12 +12,12 @@
         </div>
     @endif
 
-    {{-- <a href="{{ route('carros.create') }}" class="inline-block mb-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Adicionar Carro</a> --}}
+    {{-- <a href="{{ route('carros.create') }}" class="inline-block mb-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">Adicionar Carro</a> --}}
 
     <form method="GET" action="{{ route('carros.index') }}" class="mb-6 flex flex-wrap gap-4 items-end bg-gray-50 p-4 rounded shadow">
         <div>
             <label for="marca" class="block text-gray-700 font-semibold mb-1">Marca</label>
-            <select name="marca" id="marca" class="w-40 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select name="marca" id="marca" class="w-40 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">Todas</option>
                 @foreach ($marcas as $id => $nome)
                     <option value="{{ $nome }}" {{ request('marca') == $nome ? 'selected' : '' }}>{{ $nome }}</option>
@@ -26,7 +26,7 @@
         </div>
         <div>
             <label for="cor" class="block text-gray-700 font-semibold mb-1">Cor</label>
-            <select name="cor" id="cor" class="w-32 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select name="cor" id="cor" class="w-32 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">Todas</option>
                 @foreach ($cores as $cor)
                     <option value="{{ $cor }}" {{ request('cor') == $cor ? 'selected' : '' }}>{{ $cor }}</option>
@@ -36,14 +36,14 @@
         <div>
             <label for="disponivel" class="block text-gray-700 font-semibold mb-1">Disponível</label>
             <select name="disponivel" id="disponivel"
-                class="w-32 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                class="w-32 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">Todos</option>
                 <option value="1" {{ request('disponivel') === '1' ? 'selected' : '' }}>Sim</option>
                 <option value="0" {{ request('disponivel') === '0' ? 'selected' : '' }}>Não</option>
             </select>
         </div>
         <div>
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded">Filtrar</button>
+            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded">Filtrar</button>
         </div>
     </form>
 
@@ -76,7 +76,7 @@
                     </td>
                     <td class="py-2 px-4 border-b relative">
                         <a href="{{ route('carros.show', $carro) }}?data_inicio={{ request('data_inicio') }}&data_fim={{ request('data_fim') }}"
-                           class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-4 rounded">
+                           class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition">
                            Ver Detalhes
                         </a>
                     </td>

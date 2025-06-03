@@ -32,6 +32,7 @@ Route::get('/pesquisa', [PesquisaController::class, 'index'])->name('pesquisa');
 Route::get('/reservas', [PesquisaController::class, 'reservas'])
     ->middleware(['auth', 'verified'])
     ->name('reservas');
+Route::get('/reservas/{id}/pdf', [App\Http\Controllers\ReservaController::class, 'pdf'])->name('reservas.pdf');
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])

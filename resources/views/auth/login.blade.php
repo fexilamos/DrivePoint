@@ -5,9 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @keyframes kenburns {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+            100% {
+                transform: scale(1.2) translate(-5%, -5%);
+            }
+        }
+
+        .kenburns-bg {
+            animation: kenburns 20s ease-in-out infinite alternate;
+        }
+    </style>
 </head>
-<body class="bg-cover bg-center min-h-screen flex items-center justify-center" style="background-image: url('/images/background.svg');">
-    <div class="bg-white shadow rounded-lg p-8 w-full max-w-md">
+<body class="relative min-h-screen flex items-center justify-center overflow-hidden text-gray-900">
+
+    <!-- Fundo com efeito Ken Burns -->
+    <div class="absolute inset-0 z-0 bg-cover bg-center kenburns-bg" style="background-image: url('/images/background.svg');"></div>
+
+    <!-- Formulário de login -->
+    <div class="relative z-10 bg-white shadow rounded-lg p-8 w-full max-w-md">
         <h2 class="text-2xl font-bold text-center mb-6 text-red-600">Iniciar Sessão</h2>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />

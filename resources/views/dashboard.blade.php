@@ -5,6 +5,47 @@
 @section('content')
 
 
+  @if(isset($randomCars) && $randomCars->count())
+  <div class="max-w-6xl mx-auto mt-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Card Veículos Aleatórios -->
+      <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col">
+        <h2 class="text-xl font-bold mb-4 text-red-700">Sugestão de Viaturas</h2>
+        <div class="grid grid-cols-1 gap-4">
+          @foreach($randomCars as $carro)
+          <div class="flex items-center space-x-4 border-b pb-3 last:border-b-0">
+            <img src="{{ asset('images/' . $carro->imagem) }}" alt="{{ $carro->modelo }}" class="w-24 h-16 object-cover rounded border">
+            <div>
+              <div class="font-semibold text-gray-800">{{ $carro->marca->nome ?? '' }} {{ $carro->modelo }} ({{ $carro->ano }})</div>
+              <div class="text-sm text-gray-600">Cor: {{ $carro->cor }} | Combustível: {{ ucfirst($carro->combustivel) }} | Transmissão: {{ ucfirst($carro->transmissao) }}</div>
+              <div class="text-sm text-gray-600">Local de levantamento: <span class="font-semibold">{{ $carro->local_levantamento ?? '-' }}</span></div>
+              <div class="text-red-700 font-bold mt-1">{{ number_format($carro->preco_diario ?? $carro->preco_dia, 2) }} €/dia</div>
+            </div>
+          </div>
+          @endforeach
+        </div>
+      </div>
+      <!-- Card Minhas Reservas -->
+      <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col">
+        <h2 class="text-xl font-bold mb-4 text-red-700">Minhas Reservas</h2>
+        @if(isset($userReservations) && $userReservations->count())
+        <ul class="divide-y">
+          @foreach($userReservations as $reserva)
+          <li class="py-3 flex flex-col">
+            <span class="font-semibold text-gray-800">{{ $reserva->bemLocavel->marca->nome ?? '' }} {{ $reserva->bemLocavel->modelo ?? '' }}</span>
+            <span class="text-sm text-gray-600">{{ $reserva->data_inicio }} a {{ $reserva->data_fim }}</span>
+            <span class="text-sm">Total: <span class="font-bold">{{ number_format($reserva->preco_total, 2) }} €</span> | Estado: <span class="capitalize">{{ $reserva->status ?? 'ativa' }}</span></span>
+          </li>
+          @endforeach
+        </ul>
+        @else
+        <span class="text-gray-500">Ainda não tem reservas.</span>
+        @endif
+      </div>
+    </div>
+  </div>
+  @endif
+
   @if(isset($cardsTurismo) && count($cardsTurismo) > 0)
     <div class="max-w-6xl mx-auto mb-8">
       <div x-data="{ idx: 0, total: {{ count($cardsTurismo) }} }" class="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row relative">
@@ -16,11 +57,11 @@
             <img :src="'/images/' + card.imagem" alt="Turismo" class="w-full md:w-96 h-64 object-cover">
             <div class="p-8 flex-1 flex flex-col justify-between">
               <div>
-                <h3 class="text-2xl font-bold mb-4 text-red-600" x-text="card.titulo"></h3>
+                <h3 class="text-2xl font-bold mb-4 text-red-700" x-text="card.titulo"></h3>
                 <p class="text-gray-700 text-lg" x-text="card.descricao"></p>
               </div>
               <div class="mt-6 flex justify-end">
-<a :href="card.link" target="_blank" class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition">Vamos viajar!</a>
+<a :href="card.link" target="_blank" class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-700 hover:text-white transition">Vamos viajar!</a>
               </div>
             </div>
           </div>

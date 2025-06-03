@@ -5,11 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Landing Page - Aluguer de Carros</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-cover bg-center text-gray-800 min-h-screen" style="background-image: url('/images/background.svg');">
+  <style>
+    @keyframes kenburns {
+      0% {
+        transform: scale(1) translate(0, 0);
+      }
+      100% {
+        transform: scale(1.2) translate(-5%, -5%);
+      }
+    }
 
-  <!-- Landing Page -->
-  <section class="h-screen flex items-center justify-center bg-white/80">
+    .kenburns-bg {
+      animation: kenburns 20s ease-in-out infinite alternate;
+    }
+  </style>
+</head>
+<body class="relative text-gray-800 min-h-screen overflow-hidden">
+
+  <!-- Background com efeito Ken Burns -->
+  <div class="absolute inset-0 z-0 kenburns-bg bg-cover bg-center" style="background-image: url('/images/background.svg');"></div>
+
+  <!-- Conteúdo acima do fundo -->
+  <section class="relative z-10 h-screen flex items-center justify-center bg-white/80">
     <div class="text-center">
       <img src="/images/logo.png" alt="Logotipo" class="mx-auto mb-2 w-80 h-auto">
 

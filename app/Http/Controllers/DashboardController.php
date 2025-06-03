@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BemLocavel;
+use App\Models\Reserva;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -49,6 +51,29 @@ class DashboardController extends Controller
             $availableCars = BemLocavel::whereIn('id', $availableCarIds)->get();
         }
 
+        // Veículos aleatórios (agora 4)
+        $randomCars = BemLocavel::with('marca')
+            ->inRandomOrder()
+            ->limit(4)
+            ->get()
+            ->map(function($carro) {
+                // Buscar o primeiro local de levantamento disponível
+                $local = DB::table('localizacoes')
+                    ->where('bem_locavel_id', $carro->id)
+                    ->value('filial');
+                $carro->local_levantamento = $local;
+                return $carro;
+            });
+
+        // Reservas do utilizador autenticado
+        $userReservations = collect();
+        if (Auth::check()) {
+            $userReservations = Reserva::with(['bemLocavel.marca'])
+                ->where('user_id', Auth::id())
+                ->orderByDesc('created_at')
+                ->limit(5)
+                ->get();
+        }
 
         $cardsTurismo = [
             [
@@ -90,6 +115,8 @@ class DashboardController extends Controller
             'dataInicio' => $request->input('data_inicio'),
             'dataFim' => $request->input('data_fim'),
             'cardsTurismo' => $cardsTurismo,
+            'randomCars' => $randomCars,
+            'userReservations' => $userReservations,
         ]);
     }
 }

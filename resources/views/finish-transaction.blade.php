@@ -37,9 +37,9 @@
 
             {{-- Botão para voltar à página inicial ou continuar navegando --}}
             <div class="flex justify-center">
-                <a href="{{ route('transaction.create') }}"
+                <a href="{{ route('profile.edit') }}"
                     class="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 text-center">
-                    Fazer nova transação
+                    Ir para o meu perfil
                 </a>
             </div>
         </div>

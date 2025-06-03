@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BemLocavel;
 use App\Models\Marca;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CarroController extends Controller
 {
@@ -66,7 +67,20 @@ class CarroController extends Controller
             ? $carro->estaDisponivel($data_inicio, $data_fim)
             : null;
 
-        return view('carros.show', compact('carro', 'data_inicio', 'data_fim', 'disponivel'));
+        // Buscar locais de levantamento para este carro
+        $locais = DB::table('localizacoes')
+            ->where('bem_locavel_id', $carro->id)
+            ->pluck('filial');
+
+        // Calcular total
+        $dias = null;
+        $total = null;
+        if ($data_inicio && $data_fim) {
+            $dias = \Carbon\Carbon::parse($data_inicio)->diffInDays(\Carbon\Carbon::parse($data_fim));
+            $total = $dias > 0 ? $dias * ($carro->preco_diario ?? $carro->preco_dia) : 0;
+        }
+
+        return view('carros.show', compact('carro', 'data_inicio', 'data_fim', 'disponivel', 'locais', 'dias', 'total'));
     }
 
     public function edit(BemLocavel $carro)

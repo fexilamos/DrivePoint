@@ -33,8 +33,8 @@
 
     <a href="{{ route('carros.index') }}" class="inline-block mt-6 bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded">Voltar</a>
 @if (auth()->check())
-  <form action="{{ route('reservas.store', $carro) }}" method="POST" class="mt-4">
-      @csrf
+  <form action="{{ route('transaction.create') }}" method="GET" class="mt-4">
+      <input type="hidden" name="carro_id" value="{{ $carro->id }}">
       <div class="mb-2">
           <label for="data_inicio" class="block font-semibold">Data de Início:</label>
           <input type="date" name="data_inicio" required value="{{ $data_inicio ?? '' }}" class="border px-2 py-1 rounded w-full">
@@ -43,6 +43,22 @@
           <label for="data_fim" class="block font-semibold">Data de Fim:</label>
           <input type="date" name="data_fim" required value="{{ $data_fim ?? '' }}" class="border px-2 py-1 rounded w-full">
       </div>
+      <div class="mb-2">
+          <label for="local_retirada" class="block font-semibold">Local de Levantamento:</label>
+          <select name="local_retirada" required class="border px-2 py-1 rounded w-full">
+              <option value="" disabled selected>Selecione o local</option>
+              @foreach($locais as $local)
+                  <option value="{{ $local }}">{{ $local }}</option>
+              @endforeach
+          </select>
+      </div>
+      @if (isset($dias) && isset($total))
+        <div class="mb-2">
+            <label class="block font-semibold">Total:</label>
+            <span class="font-bold">€{{ number_format($total, 2) }}</span>
+            <input type="hidden" name="total" value="{{ $total }}">
+        </div>
+      @endif
       <button type="submit"
           class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">
           Reservar este carro

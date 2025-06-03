@@ -7,12 +7,14 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
-<body class="bg-white text-gray-900 min-h-screen transition-colors duration-300">
+<body class="bg-cover bg-center text-gray-900 min-h-screen transition-colors duration-300" style="background-image: url('/images/background.svg');">
 
   <!-- Cabeçalho -->
   <header class="bg-red-500 text-white py-4 shadow">
     <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-      <h1 class="text-2xl font-bold">DrivePoint</h1>
+      <h1 >
+<img src="/images/logo2.png" alt="DrivePoint Logo" class="h-10 max-w-[220px] w-auto inline-block align-middle">
+      </h1>
 
       <div class="flex items-center space-x-4">
         <!-- Botão Logout -->
@@ -25,8 +27,8 @@
   </header>
 
   <!-- Conteúdo -->
-  <main class="max-w-6xl mx-auto px-6 py-10">
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  <main class="max-w-6xl mx-auto px-6 py-10 bg-white/80 rounded-lg shadow-md">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
       <!-- Card: Dashboard -->
       <a href="{{ route('dashboard') }}" class="bg-gray-100 hover:bg-gray-200 p-6 rounded-lg text-center transition shadow">
@@ -47,13 +49,14 @@
       </a>
 
       <!-- Card: Carros -->
-      <a href="/carros" class="bg-gray-100 hover:bg-gray-200 p-6 rounded-lg text-center transition shadow">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto text-red-700 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13l2-5h14l2 5M5 13h14v5a2 2 0 01-2 2H7a2 2 0 01-2-2v-5zM6 16h.01M18 16h.01" />
-        </svg>
-        <h2 class="text-xl font-semibold mb-1">Carros</h2>
-        <p class="text-gray-700">Listar ou adicionar carros.</p>
-      </a>
+<a href="/carros" class="bg-gray-100 hover:bg-gray-200 p-6 rounded-lg text-center transition shadow">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto text-red-700 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 10s7-5.686 7-10a7 7 0 10-14 0c0 4.314 7 10 7 10z"/>
+  </svg>
+  <h2 class="text-xl font-semibold mb-1">Carros</h2>
+  <p class="text-gray-700">Listar ou adicionar carros.</p>
+</a>
+
 
       <!-- Card: Perfil -->
       <a href="/perfil" class="bg-gray-100 hover:bg-gray-200 p-6 rounded-lg text-center transition shadow">
@@ -66,12 +69,10 @@
 
     </div>
 
-
     <div class="mt-10">
       @yield('content')
     </div>
   </main>
-
 
   <footer class="bg-gray-200 text-center py-4 mt-10">
     <p class="text-gray-600">© 2023 DrivePoint. Todos os direitos reservados.</p>

@@ -79,9 +79,9 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           @foreach ($availableCars as $carro)
             <div class="border rounded shadow p-4">
-              <h4 class="font-semibold text-lg mb-2">{{ $carro->marca }} {{ $carro->modelo }} ({{ $carro->ano }})</h4>
+              <h4 class="font-semibold text-lg mb-2">{{ $carro->marca->nome ?? '' }} {{ $carro->modelo }} ({{ $carro->ano }})</h4>
               <p class="mb-1">Cor: {{ $carro->cor }}</p>
-              <p class="mb-1">Preço Diário: €{{ number_format($carro->preco_diario, 2) }}</p>
+              <p class="mb-1">Preço Diário: €{{ number_format($carro->preco_diario ?? $carro->preco_dia, 2) }}</p>
               <p class="mb-1">Combustível: {{ ucfirst($carro->combustivel) }}</p>
               <p class="mb-1">Transmissão: {{ ucfirst($carro->transmissao) }}</p>
               <a href="{{ route('carros.show', $carro) }}"

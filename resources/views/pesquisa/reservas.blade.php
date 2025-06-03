@@ -56,7 +56,7 @@
          alt="Imagem do {{ $carro->modelo }}"
          class="mb-3 w-full h-48 object-cover rounded">
 
-    <h4 class="font-semibold text-lg mb-2">{{ $carro->marca }} {{ $carro->modelo }} ({{ $carro->ano }})</h4>
+    <h4 class="font-semibold text-lg mb-2">{{ $carro->marca->nome ?? '' }} {{ $carro->modelo }} ({{ $carro->ano }})</h4>
     <p class="mb-1">Cor: {{ $carro->cor }}</p>
     <p class="mb-1">Preço Diário: €{{ number_format($carro->preco_diario, 2) }}</p>
     <p class="mb-1">Combustível: {{ ucfirst($carro->combustivel) }}</p>

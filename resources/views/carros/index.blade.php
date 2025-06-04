@@ -3,7 +3,7 @@
 @section('title', 'Lista de Carros')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
+<div class="max-w-6xl mx-auto px-6 py-10 bg-white/80 rounded-lg shadow-md mt-6">
     <h1 class="text-3xl font-bold mb-6">A nossa gama de carros</h1>
 
     @if (session('success'))
@@ -12,7 +12,6 @@
         </div>
     @endif
 
-    {{-- <a href="{{ route('carros.create') }}" class="inline-block mb-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">Adicionar Carro</a> --}}
 
     <form method="GET" action="{{ route('carros.index') }}" class="mb-6 flex flex-wrap gap-4 items-end bg-gray-50 p-4 rounded shadow">
         <div>

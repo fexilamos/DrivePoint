@@ -163,6 +163,17 @@ class PayPalController extends Controller
         $amount = $request->query('amount') ?? '0.00';
         $payerName = $request->query('payer') ?? 'Desconhecido';
         $success = 'Pagamento e reserva realizados com sucesso!';
-        return view('finish-transaction', compact('amount', 'payerName', 'success'));
+
+        // Buscar a última reserva do usuário autenticado
+        $reserva = null;
+        if (\Illuminate\Support\Facades\Auth::check()) {
+            $reserva = \App\Models\Reserva::with(['bemLocavel.marca', 'user'])
+                ->where('user_id', \Illuminate\Support\Facades\Auth::id())
+                ->where('status', 'reservado')
+                ->orderByDesc('created_at')
+                ->first();
+        }
+
+        return view('finish-transaction', compact('amount', 'payerName', 'success', 'reserva'));
     }
 }

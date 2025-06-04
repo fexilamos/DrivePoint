@@ -27,15 +27,31 @@
         <div class="bg-gray-100 p-6 rounded-md shadow-sm max-w-lg mx-auto">
             <h2 class="text-2xl font-bold mb-4 text-center">Transação Finalizada com Sucesso</h2>
 
-            @if (isset($amount) && isset($payerName))
-                <div class="p-4 mb-4 text-white bg-green-500 rounded-md text-center">
-                    <p class="text-lg font-semibold">Pagamento Realizado!</p>
-                    <p class="text-sm">Valor: <span class="font-bold">{{ $amount }}</span>, pago por: <span
-                            class="font-bold">{{ $payerName }}</span>.</p>
+            @if (isset($reserva))
+                <div class="mb-4 text-left">
+                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Resumo da Reserva</h3>
+                    <ul class="text-gray-700 text-sm space-y-1">
+                        <li><strong>Carro:</strong> {{ $reserva->bemLocavel->marca->nome ?? '' }} {{ $reserva->bemLocavel->modelo ?? '' }}</li>
+                        <li><strong>Matrícula:</strong> {{ $reserva->bemLocavel->registo_unico_publico ?? $reserva->bemLocavel->matricula ?? '-' }}</li>
+                        <li><strong>Data de Início:</strong> {{ $reserva->data_inicio }}</li>
+                        <li><strong>Data de Fim:</strong> {{ $reserva->data_fim }}</li>
+                        <li><strong>Local de levantamento:</strong> {{ $reserva->local_retirada ?? '-' }}</li>
+                        <li><strong>Preço Total:</strong> {{ number_format($reserva->preco_total, 2) }} €</li>
+                        <li><strong>Estado:</strong> {{ ucfirst($reserva->status ?? 'ativa') }}</li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="{{ route('reservas.pdf', $reserva->id) }}" target="_blank" class="inline-block px-5 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">Download PDF</a>
+                    </div>
                 </div>
             @endif
 
-            {{-- Botão para voltar à página inicial ou continuar navegando --}}
+            @if (isset($amount) && isset($payerName))
+                <div class="p-4 mb-4 text-white bg-green-500 rounded-md text-center">
+                    <p class="text-lg font-semibold">Pagamento Realizado!</p>
+                    <p class="text-sm">Valor: <span class="font-bold">{{ $amount }}</span>, pago por: <span class="font-bold">{{ $payerName }}</span>.</p>
+                </div>
+            @endif
+
             <div class="flex justify-center">
                 <a href="{{ route('profile.edit') }}"
                     class="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 text-center">

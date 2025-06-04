@@ -21,7 +21,7 @@
     }
   </style>
 </head>
-<body class="relative text-gray-900 min-h-screen"><!-- Removido overflow-hidden -->
+<body class="relative text-gray-900 min-h-screen">
 
   <!-- Fundo animado -->
   <div class="absolute inset-0 z-0 bg-cover bg-center kenburns-bg" style="background-image: url('/images/background.svg');"></div>

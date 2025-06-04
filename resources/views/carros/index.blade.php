@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
-    <h1 class="text-3xl font-bold mb-6">Lista de Carros</h1>
+    <h1 class="text-3xl font-bold mb-6">A nossa gama de carros</h1>
 
     @if (session('success'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4" role="alert">
@@ -43,47 +43,27 @@
             </select>
         </div>
         <div>
-            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded">Filtrar</button>
+            <button type="submit" class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition">Filtrar</button>
         </div>
     </form>
 
-    <table class="min-w-full bg-white border border-gray-200 rounded shadow">
-        <thead class="bg-gray-100">
-            <tr>
-                <th class="py-2 px-4 border-b text-left">Marca</th>
-                <th class="py-2 px-4 border-b text-left">Modelo</th>
-                <th class="py-2 px-4 border-b text-left">Ano</th>
-                <th class="py-2 px-4 border-b text-left">Matrícula</th>
-                <th class="py-2 px-4 border-b text-left">Preço/dia</th>
-                <th class="py-2 px-4 border-b text-left">Disponível</th>
-                <th class="py-2 px-4 border-b text-left">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($carros as $carro)
-                <tr class="hover:bg-gray-50">
-                    <td class="py-2 px-4 border-b">{{ $carro->marca->nome ?? '' }}</td>
-                    <td class="py-2 px-4 border-b">{{ $carro->modelo }}</td>
-                    <td class="py-2 px-4 border-b">{{ $carro->ano }}</td>
-                    <td class="py-2 px-4 border-b">{{ $carro->matricula }}</td>
-                    <td class="py-2 px-4 border-b">{{ number_format($carro->preco_diario ?? $carro->preco_dia, 2) }} €</td>
-                    <td class="py-2 px-4 border-b">
-                        @if (isset($carro->disponivel))
-                            {{ $carro->disponivel ? 'Sim' : 'Não' }}
-                        @else
-                            Sim
-                        @endif
-                    </td>
-                    <td class="py-2 px-4 border-b relative">
-                        <a href="{{ route('carros.show', $carro) }}?data_inicio={{ request('data_inicio') }}&data_fim={{ request('data_fim') }}"
-                           class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition">
-                           Ver Detalhes
-                        </a>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+        @foreach ($carros as $carro)
+            <div class="bg-white rounded-lg shadow p-4 flex flex-col">
+                <img src="{{ asset('images/' . $carro->imagem) }}" alt="Imagem do {{ $carro->modelo }}" class="w-full h-40 object-cover rounded mb-3 border">
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-red-700 mb-1">{{ $carro->marca->nome ?? '' }} {{ $carro->modelo }} ({{ $carro->ano }})</h3>
+                    <p class="text-gray-700 text-sm mb-1">Matrícula: <span class="font-semibold">{{ $carro->matricula ?? $carro->registo_unico_publico ?? '-' }}</span></p>
+                    <p class="text-gray-700 text-sm mb-1">Cor: {{ $carro->cor }}</p>
+                    <p class="text-gray-700 text-sm mb-1">Preço/dia: <span class="font-semibold">{{ number_format($carro->preco_diario ?? $carro->preco_dia, 2) }} €</span></p>
+                    <p class="text-gray-700 text-sm mb-1">Combustível: {{ ucfirst($carro->combustivel) }}</p>
+                    <p class="text-gray-700 text-sm mb-1">Transmissão: {{ ucfirst($carro->transmissao) }}</p>
+                    <p class="text-gray-700 text-sm mb-1">Disponível: <span class="font-semibold">@if (isset($carro->disponivel)){{ $carro->disponivel ? 'Sim' : 'Não' }}@else Sim @endif</span></p>
+                </div>
+                <a href="{{ route('carros.show', $carro) }}" class="mt-4 px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition text-center font-semibold">Ver Detalhes</a>
+            </div>
+        @endforeach
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>

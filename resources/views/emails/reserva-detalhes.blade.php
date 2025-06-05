@@ -19,6 +19,7 @@
                         <td style="color: #1f2937; font-size: 16px;">
                             <p style="margin: 0 0 12px 0;"><strong style="color:#b91c1c;">Reserva Nº:</strong> {{ $reserva->id }}</p>
                             <p style="margin: 0 0 12px 0;"><strong style="color:#b91c1c;">Carro:</strong> {{ $reserva->bemLocavel->marca->nome ?? '' }} {{ $reserva->bemLocavel->modelo ?? '' }}</p>
+                            <p style="margin: 0 0 12px 0;"><strong style="color:#b91c1c;">Matrícula:</strong> {{ $reserva->bemLocavel->registo_unico_publico ?? $reserva->bemLocavel->matricula ?? '-' }}</p>
                             <p style="margin: 0 0 12px 0;"><strong style="color:#b91c1c;">Data de Início:</strong> {{ $reserva->data_inicio }}</p>
                             <p style="margin: 0 0 12px 0;"><strong style="color:#b91c1c;">Data de Fim:</strong> {{ $reserva->data_fim }}</p>
                             <p style="margin: 0 0 12px 0;"><strong style="color:#b91c1c;">Duração:</strong> {{ $dias }} dia(s)</p>
@@ -26,6 +27,7 @@
                             <p style="margin: 0 0 12px 0;"><strong style="color:#b91c1c;">Preço Total:</strong> <span style="color:#047857; font-weight:bold;">{{ number_format($reserva->preco_total, 2) }} €</span></p>
                             <p style="margin: 0 0 12px 0;"><strong style="color:#b91c1c;">Estado:</strong> {{ ucfirst($reserva->status) }}</p>
                         </td>
+
                     </tr>
                     <tr>
                         <td align="center" style="padding-top: 24px;">

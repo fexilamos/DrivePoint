@@ -34,6 +34,7 @@
                         <li><strong>Estado:</strong> {{ ucfirst($reserva->status ?? 'ativa') }}</li>
                     </ul>
                     <div class="mt-4 flex flex-row justify-center gap-4">
+                        <a href="{{ route('reservas.enviarEmail', $reserva->id) }}" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Enviar Email</a>
                         <a href="{{ route('reservas.pdf', $reserva->id) }}" target="_blank" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Download PDF</a>
                         <a href="{{ route('profile.edit') }}"
                             class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
@@ -52,3 +53,5 @@
 </body>
 
 </html>
+
+

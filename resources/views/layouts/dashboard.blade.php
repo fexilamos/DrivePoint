@@ -92,6 +92,5 @@
   <footer class="relative z-10 bg-gray-200 text-center py-4 mt-10">
     <p class="text-gray-600">© 2023 DrivePoint. Todos os direitos reservados.</p>
   </footer>
-
 </body>
 </html>

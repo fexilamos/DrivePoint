@@ -61,7 +61,7 @@
         </div>
       @endif
       <button type="submit"
-          class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition">
+          class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
           Reservar este carro
       </button>
   </form>

@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction/finish', [App\Http\Controllers\ReservaController::class, 'finishMultibanco'])->name('multibanco.finish');
     Route::get('/reservas/confirmar', [ReservaController::class, 'confirmar'])->name('reservas.confirmar');
     Route::post('/reservas/confirmar', [ReservaController::class, 'confirmar'])->name('reservas.confirmar');
+    Route::get('/reservas/{id}/enviar-email', [ReservaController::class, 'enviarEmailReserva'])->name('reservas.enviarEmail');
+    Route::get('/reservas/{id}', [ReservaController::class, 'show'])->name('reservas.show');
 });
 Route::get('/pesquisa', [PesquisaController::class, 'index'])->name('pesquisa');
 Route::get('/reservas', [PesquisaController::class, 'reservas'])

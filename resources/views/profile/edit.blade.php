@@ -16,6 +16,7 @@
         <table class="w-full min-w-[900px] bg-white border border-gray-200 rounded shadow">
             <thead class="bg-gray-100">
                 <tr>
+                    <th class="py-2 px-4 border-b text-left whitespace-nowrap">ID</th>
                     <th class="py-2 px-4 border-b text-left whitespace-nowrap">Carro</th>
                     <th class="py-2 px-4 border-b text-left whitespace-nowrap">Data Início</th>
                     <th class="py-2 px-4 border-b text-left whitespace-nowrap">Data Fim</th>
@@ -27,26 +28,14 @@
             <tbody>
                 @foreach($reservas as $reserva)
                 <tr class="hover:bg-gray-50">
+                    <td class="py-2 px-4 border-b whitespace-nowrap">{{ $reserva->id }}</td>
                     <td class="py-2 px-4 border-b whitespace-nowrap">{{ $reserva->bemLocavel->marca->nome ?? '' }} {{ $reserva->bemLocavel->modelo ?? '' }}</td>
                     <td class="py-2 px-4 border-b whitespace-nowrap">{{ $reserva->data_inicio }}</td>
                     <td class="py-2 px-4 border-b whitespace-nowrap">{{ $reserva->data_fim }}</td>
                     <td class="py-2 px-4 border-b whitespace-nowrap">{{ number_format($reserva->preco_total, 2) }} €</td>
                     <td class="py-2 px-4 border-b whitespace-nowrap">{{ ucfirst($reserva->status ?? 'ativa') }}</td>
                     <td class="py-2 px-4 border-b whitespace-nowrap">
-                        <div class="flex flex-row gap-2">
-                        <form action="{{ route('reservas.pdf', $reserva->id) }}" method="GET" target="_blank" class="inline-block">
-                            <button type="submit" class="bg-white hover:bg-red-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Imprimir PDF</button>
-
-                        </form>
-                        @if($reserva->status !== 'cancelado')
-                        <form action="{{ route('reservas.cancelar', $reserva->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Tem a certeza que deseja cancelar esta reserva?');">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Cancelar Reserva</button>
-
-                        </form>
-                        @endif
-                        </div>
+                        <a href="{{ route('reservas.show', $reserva->id) }}" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Consultar Reserva</a>
                     </td>
                 </tr>
                 @endforeach

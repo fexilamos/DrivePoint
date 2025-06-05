@@ -18,14 +18,8 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         $user = $request->user();
-        $reservas = Reserva::with(['bemLocavel.marca'])
-            ->where('user_id', $user->id)
-            ->orderByDesc('data_inicio')
-            ->get();
-        return view('profile.edit', [
-            'user' => $user,
-            'reservas' => $reservas,
-        ]);
+        $reservas = $user->reservas()->with(['bemLocavel.marca'])->orderBy('id', 'asc')->get();
+        return view('profile.edit', compact('user', 'reservas'));
     }
 
     /**

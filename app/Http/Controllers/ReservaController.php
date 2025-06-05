@@ -7,6 +7,8 @@ use App\Models\Reserva;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReservaDetalhesMail;
 
 class ReservaController extends Controller
 {
@@ -235,5 +237,24 @@ public function confirmar(Request $request)
     ]]);
     // Redirecionar para a referência Multibanco
     return redirect()->route('transaction');
+}
+
+public function enviarEmailReserva($id)
+{
+    $reserva = \App\Models\Reserva::with(['bemLocavel.marca', 'user'])->findOrFail($id);
+    $dias = \Carbon\Carbon::parse($reserva->data_inicio)->diffInDays(\Carbon\Carbon::parse($reserva->data_fim));
+    $user = Auth::user();
+    Mail::to($user->email)->send(new ReservaDetalhesMail($reserva, $dias));
+    return back()->with('success', 'Email com os detalhes da reserva enviado com sucesso!');
+}
+
+public function show($id)
+{
+    $reserva = \App\Models\Reserva::with(['bemLocavel.marca', 'user'])->findOrFail($id);
+    // Permitir apenas ao próprio utilizador ver a sua reserva
+    if ($reserva->user_id !== Auth::id()) {
+        abort(403, 'Não autorizado.');
+    }
+    return view('reservas.show', compact('reserva'));
 }
 }

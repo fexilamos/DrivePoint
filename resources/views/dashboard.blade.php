@@ -61,7 +61,7 @@
                 <p class="text-gray-700 text-lg" x-text="card.descricao"></p>
               </div>
               <div class="mt-6 flex justify-end">
-<a :href="card.link" target="_blank" class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-700 hover:text-white transition">Vamos viajar!</a>
+<a :href="card.link" target="_blank" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Vamos viajar!</a>
               </div>
             </div>
           </div>

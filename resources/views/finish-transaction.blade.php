@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PayPal Checkout - Laravel</title>
+    <title>Reserva Finalizada</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
@@ -18,14 +18,8 @@
             </div>
         @endif
 
-        @if (isset($success))
-            <div class="p-4 mb-4 text-white bg-green-600 rounded-md">
-                {{ $success }}
-            </div>
-        @endif
-
         <div class="bg-gray-100 p-6 rounded-md shadow-sm max-w-lg mx-auto">
-            <h2 class="text-2xl font-bold mb-4 text-center">Transação Finalizada com Sucesso</h2>
+            <h2 class="text-2xl font-bold mb-4 text-center">Reserva Finalizada com Sucesso</h2>
 
             @if (isset($reserva))
                 <div class="mb-4 text-left">
@@ -39,24 +33,18 @@
                         <li><strong>Preço Total:</strong> {{ number_format($reserva->preco_total, 2) }} €</li>
                         <li><strong>Estado:</strong> {{ ucfirst($reserva->status ?? 'ativa') }}</li>
                     </ul>
-                    <div class="mt-4">
-                        <a href="{{ route('reservas.pdf', $reserva->id) }}" target="_blank" class="inline-block px-5 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">Download PDF</a>
+                    <div class="mt-4 flex flex-row justify-center gap-4">
+                        <a href="{{ route('reservas.pdf', $reserva->id) }}" target="_blank" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Download PDF</a>
+                        <a href="{{ route('profile.edit') }}"
+                            class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                            Ir para o meu perfil
+                        </a>
                     </div>
                 </div>
             @endif
 
-            @if (isset($amount) && isset($payerName))
-                <div class="p-4 mb-4 text-white bg-green-500 rounded-md text-center">
-                    <p class="text-lg font-semibold">Pagamento Realizado!</p>
-                    <p class="text-sm">Valor: <span class="font-bold">{{ $amount }}</span>, pago por: <span class="font-bold">{{ $payerName }}</span>.</p>
-                </div>
-            @endif
-
             <div class="flex justify-center">
-                <a href="{{ route('profile.edit') }}"
-                    class="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 text-center">
-                    Ir para o meu perfil
-                </a>
+
             </div>
         </div>
 

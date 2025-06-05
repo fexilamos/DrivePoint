@@ -27,7 +27,7 @@
   <div class="absolute inset-0 z-0 bg-cover bg-center kenburns-bg" style="background-image: url('/images/background.svg');"></div>
 
   <!-- Cabeçalho -->
-  <header class="relative z-10 bg-red-500 text-white py-4 shadow">
+  <header class="relative z-10 bg-red-700 text-white py-4 shadow">
     <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
       <h1>
         <img src="/images/logo2.png" alt="DrivePoint Logo" class="h-10 max-w-[220px] w-auto inline-block align-middle">

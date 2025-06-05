@@ -32,8 +32,9 @@
 
       <h1 class="mb-6 text-black text-xl font-semibold">Faça login ou registe-se para começar</h1>
       <div class="space-x-4">
-        <a href="/login" class="px-6 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition">Login</a>
-        <a href="/register" class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition">Registar</a>
+        <a href="/login" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Login</a>
+
+        <a href="/register" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Registar</a>
       </div>
     </div>
   </section>

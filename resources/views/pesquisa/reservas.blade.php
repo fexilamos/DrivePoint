@@ -46,7 +46,7 @@
       </div>
       <div>
         <button type="submit"
-          class="px-6 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition">Pesquisar</button>
+          class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Pesquisar</button>
       </div>
     </form>
 
@@ -66,7 +66,7 @@
     <p class="mb-1">Combustível: {{ ucfirst($carro->combustivel) }}</p>
     <p class="mb-1">Transmissão: {{ ucfirst($carro->transmissao) }}</p>
     <a href="{{ route('carros.show', $carro) }}?data_inicio={{ request('data_inicio') }}&data_fim={{ request('data_fim') }}"
-   class="inline-block mt-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-1 px-4 rounded">
+   class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
    Ver Detalhes
 </a>
 

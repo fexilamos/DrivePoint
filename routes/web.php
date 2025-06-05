@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\CarroController;
 use App\Http\Controllers\PesquisaController;
-use App\Http\Controllers\PayPalController;
 
 
 Route::get('/', function () {
@@ -26,7 +25,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('carros', CarroController::class);
     Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.store');
+    Route::patch('/reservas/{id}/cancelar', [ReservaController::class, 'cancelar'])->name('reservas.cancelar');
     Route::get('/perfil', [ProfileController::class, 'edit'])->name('perfil');
+    Route::get('/transaction', [App\Http\Controllers\ReservaController::class, 'showMultibanco'])->name('transaction');
+    Route::post('/transaction/confirmar', [App\Http\Controllers\ReservaController::class, 'confirmarPagamentoMultibanco'])->name('multibanco.confirmar');
+    Route::get('/transaction/finish', [App\Http\Controllers\ReservaController::class, 'finishMultibanco'])->name('multibanco.finish');
+    Route::get('/reservas/confirmar', [ReservaController::class, 'confirmar'])->name('reservas.confirmar');
+    Route::post('/reservas/confirmar', [ReservaController::class, 'confirmar'])->name('reservas.confirmar');
 });
 Route::get('/pesquisa', [PesquisaController::class, 'index'])->name('pesquisa');
 Route::get('/reservas', [PesquisaController::class, 'reservas'])
@@ -39,13 +44,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::prefix('transaction')->name('transaction.')->group(function () {
-    Route::get('/', [PayPalController::class, 'createTransaction'])->name('create');
-    Route::get('/process', [PayPalController::class, 'processTransaction'])->name('process');
-    Route::get('/success', [PayPalController::class, 'successTransaction'])->name('success');
-    Route::get('/cancel', [PayPalController::class, 'cancelTransaction'])->name('cancel');
-    Route::get('/finish', [PayPalController::class, 'finishTransaction'])->name('finish');
-});
 
 
 

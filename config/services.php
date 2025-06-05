@@ -34,16 +34,21 @@ return [
         ],
     ],
 
-    'paypal' => [
-        'mode'    => env('PAYPAL_MODE', 'sandbox'),
-        'sandbox' => [
-            'client_id'     => env('PAYPAL_CLIENT_ID', ''),
-            'client_secret' => env('PAYPAL_CLIENT_SECRET', ''),
-        ],
-        'payment_action' => 'Sale',
-        'currency'       => 'EUR',
-        'notify_url'     => '',
-        'locale'         => 'pt_PT',
-        'validate_ssl'   => true,
+    // 'paypal' => [
+    //     'mode'    => env('PAYPAL_MODE', 'sandbox'),
+    //     'sandbox' => [
+    //         'client_id'     => env('PAYPAL_CLIENT_ID', ''),
+    //         'client_secret' => env('PAYPAL_CLIENT_SECRET', ''),
+    //     ],
+    //     'payment_action' => 'Sale',
+    //     'currency'       => 'EUR',
+    //     'notify_url'     => '',
+    //     'locale'         => 'pt_PT',
+    //     'validate_ssl'   => true,
+    // ],
+
+    'google' => [
+        'recaptcha_secret_key' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
+        'recaptcha_site_key' => env('GOOGLE_RECAPTCHA_SITE_KEY'),
     ],
 ];

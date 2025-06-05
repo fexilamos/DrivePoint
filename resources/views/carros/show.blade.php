@@ -33,7 +33,8 @@
 
     <a href="{{ route('carros.index') }}" class="inline-block mt-6 bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded">Voltar</a>
 @if (auth()->check())
-  <form action="{{ route('transaction.create') }}" method="GET" class="mt-4">
+  <form action="{{ route('reservas.confirmar') }}" method="GET" class="mt-4">
+      @csrf
       <input type="hidden" name="carro_id" value="{{ $carro->id }}">
       <div class="mb-2">
           <label for="data_inicio" class="block font-semibold">Data de Início:</label>
@@ -66,6 +67,16 @@
   </form>
 @else
   <p class="mt-4 text-sm text-red-600">Precisa de estar autenticado para fazer uma reserva.</p>
+@endif
+
+@if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <ul class="list-disc list-inside">
+            @foreach ($errors->all() as $erro)
+                <li class="font-semibold">{{ $erro }}</li>
+            @endforeach
+        </ul>
+    </div>
 @endif
 
 

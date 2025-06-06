@@ -67,12 +67,10 @@ class CarroController extends Controller
             ? $carro->estaDisponivel($data_inicio, $data_fim)
             : null;
 
-        // Buscar locais de levantamento para este carro
         $locais = DB::table('localizacoes')
             ->where('bem_locavel_id', $carro->id)
             ->pluck('filial');
 
-        // Calcular total
         $dias = null;
         $total = null;
         if ($data_inicio && $data_fim) {

@@ -27,13 +27,12 @@ class DashboardController extends Controller
             $dataInicio = $request->input('data_inicio');
             $dataFim = $request->input('data_fim');
 
-            // Get bem_locavel_ids for the selected location
             $carIdsAtLocation = DB::table('localizacoes')
                 ->where('cidade', $cidade)
                 ->where('filial', $filial)
                 ->pluck('bem_locavel_id');
 
-            // Get cars at location that are NOT reserved in the selected date range
+
             $reservedCarIds = DB::table('reservas')
                 ->whereIn('bem_locavel_id', $carIdsAtLocation)
                 ->where(function ($query) use ($dataInicio, $dataFim) {
@@ -51,7 +50,6 @@ class DashboardController extends Controller
             $availableCars = BemLocavel::whereIn('id', $availableCarIds)->get();
         }
 
-        // Veículos aleatórios (agora 4)
         $randomCars = BemLocavel::with('marca')
             ->inRandomOrder()
             ->limit(4)
@@ -65,8 +63,8 @@ class DashboardController extends Controller
                 return $carro;
             });
 
-        // Reservas do utilizador autenticado
-        $userReservations = collect();
+
+            $userReservations = collect();
         if (Auth::check()) {
             $userReservations = Reserva::with(['bemLocavel.marca'])
                 ->where('user_id', Auth::id())

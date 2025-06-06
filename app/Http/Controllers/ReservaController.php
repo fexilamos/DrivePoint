@@ -130,7 +130,7 @@ public function confirmarPagamentoMultibanco(Request $request)
     return redirect()->route('multibanco.finish');
 }
 
-// Exibe a tela de finalização da reserva
+
 public function finishMultibanco(Request $request)
 {
     $reservaId = session('reserva_id');
@@ -141,18 +141,18 @@ public function finishMultibanco(Request $request)
     return view('finish-transaction', compact('reserva'));
 }
 
-// Exibe a tela de confirmação da reserva antes de gerar referência Multibanco
+
 public function confirmar(Request $request)
 {
     if ($request->isMethod('get')) {
-        // GET: Mostra a view de confirmação com o resumo e o reCAPTCHA
+
         $carro = \App\Models\BemLocavel::with('marca')->findOrFail($request->carro_id);
         $data_inicio = $request->data_inicio;
         $data_fim = $request->data_fim;
         $local_retirada = $request->local_retirada;
         $dias = \Carbon\Carbon::parse($data_inicio)->diffInDays(\Carbon\Carbon::parse($data_fim));
         $total = $dias > 0 ? $dias * ($carro->preco_diario ?? $carro->preco_dia) : 0;
-        // Verificar conflito de datas ANTES de mostrar o resumo
+
         $conflito = \App\Models\Reserva::where('bem_locavel_id', $carro->id)
             ->where(function($query) use ($data_inicio, $data_fim) {
                 $query->whereBetween('data_inicio', [$data_inicio, $data_fim])
@@ -172,8 +172,7 @@ public function confirmar(Request $request)
         }
         return view('reservas.confirmar', compact('carro', 'data_inicio', 'data_fim', 'local_retirada', 'dias', 'total'));
     }
-    // POST: Processa o reCAPTCHA e avança
-    // Validação do reCAPTCHA
+
     if (!$request->has('g-recaptcha-response') || empty($request->input('g-recaptcha-response'))) {
         Log::warning('reCAPTCHA não marcado', [
             'ip' => $request->ip(),
@@ -208,7 +207,7 @@ public function confirmar(Request $request)
     $local_retirada = $request->local_retirada;
     $dias = \Carbon\Carbon::parse($data_inicio)->diffInDays(\Carbon\Carbon::parse($data_fim));
     $total = $dias > 0 ? $dias * ($carro->preco_diario ?? $carro->preco_dia) : 0;
-    // Verificar conflito de datas ANTES de avançar para o Multibanco
+
     $conflito = \App\Models\Reserva::where('bem_locavel_id', $carro->id)
         ->where(function($query) use ($data_inicio, $data_fim) {
             $query->whereBetween('data_inicio', [$data_inicio, $data_fim])
@@ -226,7 +225,7 @@ public function confirmar(Request $request)
             date('d/m/Y', strtotime($conflito->data_fim)) . '. Por favor, escolha outras datas.';
         return back()->withErrors(['data_inicio' => $msg])->withInput();
     }
-    // Guardar dados em sessão para o próximo passo
+
     session(['reserva' => [
         'carro_id' => $carro->id,
         'data_inicio' => $data_inicio,
@@ -235,7 +234,7 @@ public function confirmar(Request $request)
         'total' => $total,
         'user_id' => Auth::id(),
     ]]);
-    // Redirecionar para a referência Multibanco
+
     return redirect()->route('transaction');
 }
 

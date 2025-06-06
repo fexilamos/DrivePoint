@@ -9,6 +9,15 @@
     <div class="bg-white shadow rounded p-6">
         <h2 class="text-xl font-semibold mb-2">{{ $carro->marca->nome ?? '' }} {{ $carro->modelo }} ({{ $carro->ano }})</h2>
         <p class="mb-1"><strong>Matrícula:</strong> {{ $carro->registo_unico_publico ?? $carro->matricula ?? '-' }}</p>
+       <p class="mb-1"><strong>Cor:</strong> {{ $carro->cor }}</p>
+       <p class="mb-1"><strong>Combustível:</strong> {{ ucfirst($carro->combustivel) }}</p>
+       <p class="mb-1"><strong>Transmissão:</strong> {{ ucfirst($carro->transmissao) }}</p>
+       <p class="mb-1"><strong>Localização:</strong> {{ $carro->localizacoes->first()->cidade ?? '-' }}
+    @if($carro->localizacoes->first())
+        @if($carro->localizacoes->first()->filial), {{ $carro->localizacoes->first()->filial }}@endif
+        @if($carro->localizacoes->first()->posicao), {{ $carro->localizacoes->first()->posicao }}@endif
+    @endif
+</p>
         <p class="mb-1"><strong>Preço por dia:</strong> {{ number_format($carro->preco_diario ?? $carro->preco_dia, 2) }} €</p>
         @if ($data_inicio && $data_fim)
             @php

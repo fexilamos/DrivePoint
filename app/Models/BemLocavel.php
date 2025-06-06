@@ -57,6 +57,12 @@ public function marca()
 }
 
 
+public function localizacoes()
+{
+    return $this->hasMany(\App\Models\Localizacao::class, 'bem_locavel_id');
+}
+
+
 }
 
 

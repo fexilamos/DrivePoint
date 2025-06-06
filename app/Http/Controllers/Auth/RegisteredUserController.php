@@ -33,15 +33,22 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'nif' => 'required|string|max:20',
+            'nif' => 'required|string|max:20|unique:users,nif',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-             'nif' => $request->nif,
-        ]);
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'nif' => $request->nif,
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) { // Duplicate entry
+                return back()->withInput()->withErrors(['nif' => 'Já existe um utilizador com este NIF.']);
+            }
+            throw $e;
+        }
 
         event(new Registered($user));
 

@@ -1,4 +1,4 @@
-# 🚗 Alugar Carros - Plataforma de Aluguer de Viaturas
+# 🚗 DrivePoint - Plataforma de Aluguer de Viaturas
 
 Este projeto é uma aplicação web desenvolvida em **Laravel** que permite aos utilizadores pesquisarem viaturas disponíveis, realizarem reservas, gerir carros e acompanhar o histórico de reservas. Foi construído como parte de um projeto académico com funcionalidades completas tanto para utilizadores como para administradores.
 

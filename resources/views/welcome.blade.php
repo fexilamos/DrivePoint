@@ -30,11 +30,14 @@
     <div class="text-center">
       <img src="/images/logo.png" alt="Logotipo" class="mx-auto mb-2 w-80 h-auto">
 
-      <h1 class="mb-6 text-black text-xl font-semibold">Faça login ou registe-se para começar</h1>
+      {{-- <h1 class="mb-6 text-black text-xl font-semibold">Viajamos juntos.</h1> --}}
       <div class="space-x-4">
-        <a href="/login" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Login</a>
-
-        <a href="/register" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Registar</a>
+        @auth
+          <a href="{{ route('dashboard') }}" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Entrar</a>
+        @else
+          <a href="/login" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Login</a>
+          <a href="/register" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Registar</a>
+        @endauth
       </div>
     </div>
   </section>

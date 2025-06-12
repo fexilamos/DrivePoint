@@ -27,10 +27,42 @@ class CarroController extends Controller
         if ($request->filled('disponivel') && $request->disponivel !== '') {
             $query->where('disponivel', $request->disponivel);
         }
+        // Filtro preço mínimo
+        if ($request->filled('preco_min')) {
+            $query->where(function($q) use ($request) {
+                $q->where('preco_diario', '>=', $request->preco_min)
+                  ->orWhere('preco_dia', '>=', $request->preco_min);
+            });
+        }
+        // Filtro preço máximo
+        if ($request->filled('preco_max')) {
+            $query->where(function($q) use ($request) {
+                $q->where('preco_diario', '<=', $request->preco_max)
+                  ->orWhere('preco_dia', '<=', $request->preco_max);
+            });
+        }
+        // Filtro combustível
+        if ($request->filled('combustivel')) {
+            $query->where('combustivel', $request->combustivel);
+        }
+        // Filtro transmissão
+        if ($request->filled('transmissao')) {
+            $query->where('transmissao', $request->transmissao);
+        }
+        // Filtro localização (cidade/filial)
+        $localizacoes = DB::table('localizacoes')
+            ->select(DB::raw("CONCAT(cidade, ' - ', filial) as local"))
+            ->distinct()->pluck('local');
+        if ($request->filled('localizacao')) {
+            $ids = DB::table('localizacoes')
+                ->where(DB::raw("CONCAT(cidade, ' - ', filial)"), $request->localizacao)
+                ->pluck('bem_locavel_id');
+            $query->whereIn('id', $ids);
+        }
 
         $carros = $query->with('marca')->get();
         $cores = $allCores;
-        return view('carros.index', compact('carros', 'marcas', 'cores'));
+        return view('carros.index', compact('carros', 'marcas', 'cores', 'localizacoes'));
     }
 
     public function create()

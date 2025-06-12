@@ -4,9 +4,38 @@
 
 @section('content')
 <div class="max-w-6xl mx-auto py-8">
+
+    <div class="bg-white shadow rounded-lg p-6 max-w-lg mx-auto mb-8">
+        <h2 class="text-xl font-bold mb-4">Editar Perfil</h2>
+        <form method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            @method('PATCH')
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-semibold mb-1">Nome</label>
+                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-semibold mb-1">Email</label>
+                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div class="flex space-x-4">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded">Guardar</button>
+            </div>
+            @if(session('status') === 'profile-updated')
+                <div class="mt-4 p-2 bg-green-100 text-green-800 rounded">Perfil atualizado com sucesso!</div>
+            @endif
+            @if($errors->any())
+                <div class="mt-4 p-2 bg-red-100 text-red-800 rounded">
+                    @foreach($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+        </form>
+    </div>
+
     <h1 class="text-3xl font-bold mb-6">Gestão de Reservas</h1>
 
-    {{-- Listagem das reservas do utilizador --}}
     <div class="bg-white shadow rounded-lg p-6 mb-8">
         <h2 class="text-xl font-bold mb-4">As Minhas Reservas</h2>
         @if($reservas->isEmpty())
@@ -43,25 +72,6 @@
         </table>
         </div>
         @endif
-    </div>
-
-    {{-- Formulário de edição de dados do utilizador --}}
-    {{-- <div class="bg-white shadow rounded-lg p-6">
-        <form method="POST" action="{{ route('profile.update') }}">
-            @csrf
-            @method('PATCH')
-            <div class="mb-4">
-                <label for="name" class="block text-gray-700 font-semibold mb-1">Nome</label>
-                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700 font-semibold mb-1">Email</label>
-                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
-            <div class="flex space-x-4">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded">Guardar</button>
-            </div> --}}
-        </form>
     </div>
 </div>
 @endsection

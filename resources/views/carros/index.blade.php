@@ -33,13 +33,40 @@
             </select>
         </div>
         <div>
-            <label for="disponivel" class="block text-gray-700 font-semibold mb-1">Disponível</label>
-            <select name="disponivel" id="disponivel"
-                class="w-32 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+            <label for="combustivel" class="block text-gray-700 font-semibold mb-1">Combustível</label>
+            <select name="combustivel" id="combustivel" class="w-32 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">Todos</option>
-                <option value="1" {{ request('disponivel') === '1' ? 'selected' : '' }}>Sim</option>
-                <option value="0" {{ request('disponivel') === '0' ? 'selected' : '' }}>Não</option>
+                <option value="gasolina" {{ request('combustivel') == 'gasolina' ? 'selected' : '' }}>Gasolina</option>
+                <option value="diesel" {{ request('combustivel') == 'diesel' ? 'selected' : '' }}>Diesel</option>
+                <option value="elétrico" {{ request('combustivel') == 'elétrico' ? 'selected' : '' }}>Elétrico</option>
+                <option value="híbrido" {{ request('combustivel') == 'híbrido' ? 'selected' : '' }}>Híbrido</option>
+                <option value="outro" {{ request('combustivel') == 'outro' ? 'selected' : '' }}>Outro</option>
             </select>
+        </div>
+        <div>
+            <label for="transmissao" class="block text-gray-700 font-semibold mb-1">Transmissão</label>
+            <select name="transmissao" id="transmissao" class="w-32 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                <option value="">Todas</option>
+                <option value="manual" {{ request('transmissao') == 'manual' ? 'selected' : '' }}>Manual</option>
+                <option value="automática" {{ request('transmissao') == 'automática' ? 'selected' : '' }}>Automática</option>
+            </select>
+        </div>
+        <div>
+            <label for="localizacao" class="block text-gray-700 font-semibold mb-1">Localização</label>
+            <select name="localizacao" id="localizacao" class="w-40 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                <option value="">Todas</option>
+                @foreach ($localizacoes as $local)
+                    <option value="{{ $local }}" {{ request('localizacao') == $local ? 'selected' : '' }}>{{ $local }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div>
+            <label for="preco_min" class="block text-gray-700 font-semibold mb-1">Preço Mín.</label>
+            <input type="number" name="preco_min" id="preco_min" value="{{ request('preco_min') }}" class="w-24 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" min="0" step="1">
+        </div>
+        <div>
+            <label for="preco_max" class="block text-gray-700 font-semibold mb-1">Preço Máx.</label>
+            <input type="number" name="preco_max" id="preco_max" value="{{ request('preco_max') }}" class="w-24 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" min="0" step="1">
         </div>
         <div>
             <button type="submit" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Filtrar</button>

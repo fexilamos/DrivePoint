@@ -78,8 +78,8 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto text-red-700 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8.967 8.967 0 0012 21c2.21 0 4.234-.804 5.879-2.196M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
         </svg>
-        <h2 class="text-xl font-semibold mb-1">Gestão</h2>
-        <p class="text-gray-700">Gerir as minhas reservas</p>
+        <h2 class="text-xl font-semibold mb-1">Perfil</h2>
+        <p class="text-gray-700">Gerir o meu Perfil e as minhas reservas</p>
       </a>
 
     </div>
@@ -90,7 +90,7 @@
   </main>
 
   <footer class="relative z-10 bg-gray-200 text-center py-4 mt-10">
-    <p class="text-gray-600">© 2023 DrivePoint. Todos os direitos reservados.</p>
+    <p class="text-gray-600">© 2025 DrivePoint. Todos os direitos reservados.</p>
   </footer>
 </body>
 </html>

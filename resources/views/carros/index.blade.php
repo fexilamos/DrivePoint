@@ -73,23 +73,33 @@
         </div>
     </form>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-        @foreach ($carros as $carro)
-            <div class="bg-white rounded-lg shadow p-4 flex flex-col">
-                <img src="{{ asset('images/' . $carro->imagem) }}" alt="Imagem do {{ $carro->modelo }}" class="w-full h-40 object-cover rounded mb-3 border">
-                <div class="flex-1">
-                    <h3 class="text-lg font-bold text-red-700 mb-1">{{ $carro->marca->nome ?? '' }} {{ $carro->modelo }} ({{ $carro->ano }})</h3>
-                    <p class="text-gray-700 text-sm mb-1">Matrícula: <span class="font-semibold">{{ $carro->matricula ?? $carro->registo_unico_publico ?? '-' }}</span></p>
-                    <p class="text-gray-700 text-sm mb-1">Cor: {{ $carro->cor }}</p>
-                    <p class="text-gray-700 text-sm mb-1">Preço/dia: <span class="font-semibold">{{ number_format($carro->preco_diario ?? $carro->preco_dia, 2) }} €</span></p>
-                    <p class="text-gray-700 text-sm mb-1">Combustível: {{ ucfirst($carro->combustivel) }}</p>
-                    <p class="text-gray-700 text-sm mb-1">Transmissão: {{ ucfirst($carro->transmissao) }}</p>
-                    <p class="text-gray-700 text-sm mb-1">Disponível: <span class="font-semibold">@if (isset($carro->disponivel)){{ $carro->disponivel ? 'Sim' : 'Não' }}@else Sim @endif</span></p>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-10 gap-x-10 mt-10">
+    @foreach ($carros as $carro)
+        <div class="flex flex-col rounded-2xl w-full bg-white text-[#374151] shadow-xl mx-auto max-w-xs md:max-w-sm xl:max-w-md">
+            <figure class="flex justify-center items-center">
+                <img src="{{ asset('images/' . $carro->imagem) }}" alt="Imagem do {{ $carro->modelo }}" class="rounded-t-2xl h-48 object-cover w-full">
+            </figure>
+            <div class="flex flex-col p-6 h-full">
+                <div class="text-2xl font-bold pb-2 text-red-700">{{ $carro->marca->nome ?? '' }} {{ $carro->modelo }}</div>
+                <div class="text-gray-600 text-sm pb-4 italic">{{ $carro->ano }} - {{ ucfirst($carro->combustivel) }} - {{ ucfirst($carro->transmissao) }}</div>
+
+                <div class="flex flex-col gap-2 text-base text-gray-700">
+                    <div><strong>Matrícula:</strong> {{ $carro->matricula ?? $carro->registo_unico_publico ?? '-' }}</div>
+                    <div><strong>Cor:</strong> {{ $carro->cor }}</div>
+                    <div><strong>Preço/dia:</strong> {{ number_format($carro->preco_diario ?? $carro->preco_dia, 2) }} €</div>
+                    <div><strong>Disponível:</strong> @if (isset($carro->disponivel)){{ $carro->disponivel ? 'Sim' : 'Não' }}@else Sim @endif</div>
                 </div>
-                <a href="{{ route('carros.show', $carro) }}" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Ver Detalhes</a>
+
+                <div class="flex grow"></div>
+                <div class="flex pt-6">
+                    <a href="{{ route('carros.show', $carro) }}"
+                        class="w-full bg-white text-red-800 font-bold text-base p-3 rounded-lg hover:bg-red-100 border border-gray-400  rounded shadow active:scale-95 transition-transform transform text-center">
+                        Ver Detalhes
+                    </a>
+                </div>
             </div>
-        @endforeach
-    </div>
+        </div>
+    @endforeach
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>

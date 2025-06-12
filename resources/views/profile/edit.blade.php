@@ -19,7 +19,7 @@
                 <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <div class="flex space-x-4">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded">Guardar</button>
+                <button type="submit" class="bg-white hover:bg-red-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Guardar</button>
             </div>
             @if(session('status') === 'profile-updated')
                 <div class="mt-4 p-2 bg-green-100 text-green-800 rounded">Perfil atualizado com sucesso!</div>

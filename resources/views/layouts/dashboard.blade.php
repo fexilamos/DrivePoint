@@ -89,8 +89,23 @@
     </div>
   </main>
 
-  <footer class="relative z-10 bg-gray-200 text-center py-4 mt-10">
-    <p class="text-gray-600">© 2025 DrivePoint. Todos os direitos reservados.</p>
+  <footer class="relative z-10 bg-red-700 text-white mt-10">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center md:items-start justify-between">
+      <!-- Logo -->
+      <div class="flex items-center mb-4 md:mb-0">
+        <img src="/images/logo2.png" alt="DrivePoint Logo" class="h-10 w-auto mr-3">
+      </div>
+      <!-- Links de acesso rápido + direitos reservados -->
+      <div class="flex-1 flex flex-col items-center">
+        <nav class="flex flex-row justify-center items-center gap-4 mb-2">
+          <a href="/dashboard" class="hover:underline hover:text-red-200 transition">Dashboard</a>
+          <a href="/reservas" class="hover:underline hover:text-red-200 transition">Reservas</a>
+          <a href="/carros" class="hover:underline hover:text-red-200 transition">Carros</a>
+          <a href="/perfil" class="hover:underline hover:text-red-200 transition">Perfil</a>
+        </nav>
+        <p class="text-white text-sm">© 2025 DrivePoint. Todos os direitos reservados.</p>
+      </div>
+    </div>
   </footer>
 </body>
 </html>

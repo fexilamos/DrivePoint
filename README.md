@@ -38,8 +38,8 @@ Este projeto é uma aplicação web moderna desenvolvida em **Laravel** para alu
 ## 🚀 Instalação
 
 ```bash
-git clone https://github.com/seu-utilizador/alugar_carros.git
-cd alugar_carros
+git clone https://github.com/seu-utilizador/drivepoint.git
+cd drivepoint
 composer install
 cp .env.example .env
 php artisan key:generate
